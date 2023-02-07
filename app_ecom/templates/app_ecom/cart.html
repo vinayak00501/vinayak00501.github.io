@@ -1,0 +1,317 @@
+{% extends 'app_ecom/base.html' %}
+{% block title %}Your Cart{% endblock title %}
+
+{% block head %}
+
+{% endblock head %}
+
+<!-- css -->
+{% block css %}
+<style>
+    .container_cart {
+        position: absolute;
+        top: 60px;
+        /* border: 1px solid black; */
+        width: 100vw;
+        display: grid;
+
+    }
+
+    .cart_front_display {
+        background-color: black;
+        position: relative;
+        height: 300px;
+
+    }
+
+    .all_products_display {
+        display: flex;
+        flex-wrap: wrap;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        overflow-y: auto;
+        justify-content: space-evenly;
+        height: 367px;
+        margin-left: 10px;
+        padding-left: 8px;
+
+    }
+
+    .div_cart_container {
+        height: 300px;
+        /* border: 1px solid red; */
+        width: 200px;
+        margin-left: 5px;
+        margin-right: 5px;
+        border-bottom: 0.5px solid rgb(0, 123, 184); 
+    /* border-radius: 10px; */
+        width: auto;
+        display: flex;
+        flex-direction: column;
+        height: 310px;
+        width: 200px;
+        margin-right: 3px;
+        box-shadow: 1px -5px 9px 2px rgb(128 128 128 / 44%);
+        margin-right: 8px;
+        transition-property: all;
+        transition-duration: 0.3s
+    }
+    .div_cart_container:hover{
+        transform: translateY(-8px);
+    }
+
+    .img_div_cart_container {
+        height: 220px;
+        width: 100%;
+    }
+
+    .price_div_cart_container {
+        height: 20px;
+        font-size: 18px;
+        text-align: right;
+        padding-right: 10px;
+        padding-top: 4px;
+        /* color: rgb(0, 170, 255); */
+        color: rgb(46 186 255);
+        font-weight: 400;
+        position: relative;
+        top: -31px;
+    }
+
+    .heading_div_cart_container {
+        font-size: 14px;
+        padding-left: 9px;
+        margin: 0px;
+        width: 115px;
+        /* border: 1px solid red; */
+        position: relative;
+        top: 1px;
+        font-weight: 10;
+        overflow-wrap: normal;
+        /* border: 1px solid red; */
+        height: 37px;
+        /* border: 1px solid red; */
+        /* min-height: 37px;
+        max-height: 50px; */
+    }
+
+    .remove_item_div_cart_container {
+        background-color: rgb(36, 145, 199);
+        position: relative;
+        bottom: 8px;
+        width: 90%;
+        height: 32px;
+        padding: 6px 20px;
+        left: 10px;
+        color: white;
+        border-radius: 5px;
+        border: 0px;
+        text-align: center;
+        transition: all;
+        transition-duration: 0.3s;
+    }
+    .remove_item_div_cart_container:hover{
+        background-color: rgb(27, 110, 151);
+    }
+    .checkout{
+        background-color: rgb(22, 90, 124);
+        height: 50px;
+        width: 180px;
+        position: relative;
+        margin: auto;
+        margin-bottom: 20px;
+        border: 0px;
+        border-radius: 5px;
+        color: white;
+        transition: all;
+        transition-duration: 0.3s;
+    }
+    .checkout:hover{
+        background-color: rgb(27, 113, 156);
+    }
+</style>
+{% endblock css %}
+
+<!-- body -->
+{% block body %}
+
+
+
+<div class="container_cart">
+
+    <div class="cart_front_display">
+
+    </div>
+
+    <div class="all_products_display">
+
+    </div>
+
+    <button class="checkout" onclick="checkout">
+        Checkout
+    </button>
+
+
+</div>
+
+
+
+
+{% endblock %}
+<!-- js -->
+{% block js %}
+<script>
+
+    cart_ = JSON.parse(localStorage.getItem('cart_'));
+
+    // console.log('carty', cart_)
+
+    // var KeyName = window.localStorage.key(2);
+    // console.log('keyname', localStorage[KeyName], KeyName)
+    var cart_object = JSON.parse(localStorage[window.localStorage.key(2)]);
+    // console.log(cart_object);
+
+    // for(var i in cart_object){
+    //     console.log(i, cart_object[i]);
+    // }
+
+
+
+
+
+
+
+    var all_carted_ids = []
+
+    for (i in cart_object) {
+        var p_id = i.toString()
+        var new_p_id = 0;
+        if (isNaN(p_id[p_id.lenght - 2])) {
+            new_p_id = p_id[p_id.length - 2];
+            new_p_id += p_id[p_id.length - 1];
+        }
+        else {
+            new_p_id = p_id[p_id.length - 1];
+
+        }
+
+        new_p_id = new_p_id.replace('_', '')
+        all_carted_ids.push(Number(new_p_id))
+
+    }
+    establish()
+    function establish() {
+
+        var final_products_ids = []
+        var final_products_names = []
+        var final_products_price = []
+        var final_products_images = []
+
+        function get_final_products(){
+            for(i in all_products_ids){
+                
+                if (all_carted_ids.includes(all_products_ids[i])){
+                    final_products_ids.push(all_products_ids[i]);
+                    final_products_names.push(all_products_names[i]);
+                    final_products_price.push(all_products_price[i]);
+                    final_products_images.push(all_products_images[i]);
+                }
+
+            }
+        }
+
+
+        //getting all the data individually
+
+        //id
+        var all_products_ids = "{{all_products_ids|safe}}";
+        all_products_ids = JSON.parse(all_products_ids);
+
+        //names
+        var all_products_names = `{{all_products_names|safe}}`;
+        all_products_names = JSON.parse(all_products_names);
+
+        //prices
+        var all_products_price = "{{all_products_price|safe}}";
+        all_products_price = JSON.parse(all_products_price);
+
+        //images
+        var all_products_images = `{{all_products_images|safe}}`;
+        all_products_images = JSON.parse(all_products_images);
+
+        //printing all
+        //console.log('ids', all_products_ids);
+        //console.log('names', all_products_names);
+        //console.log('price', all_products_price);
+        //console.log('images_path', all_products_images);
+
+        get_final_products()
+
+        //printing final lists for display
+        console.log('carted items final', all_carted_ids)
+        console.log('ids final',final_products_ids);
+        console.log('names final',final_products_names);
+        console.log('price final', final_products_price);
+        console.log('images_path final', final_products_images);
+
+        for (p_ids_counter in final_products_ids) {
+            var container_cart = document.querySelector('.container_cart');
+            var all_products_display = document.querySelector('.all_products_display')
+
+            var div_cart_container = document.createElement('div');
+            div_cart_container.classList.add("div_cart_container");
+            div_cart_container.setAttribute("id", `div_cart_container_${final_products_ids[p_ids_counter]}`);
+            all_products_display.appendChild(div_cart_container);
+
+            var img_div_cart_container = document.createElement('img');
+            img_div_cart_container.classList.add('img_div_cart_container');
+            img_div_cart_container.setAttribute("id", `img_div_cart_container_${final_products_ids[p_ids_counter]}`);
+            img_div_cart_container.setAttribute("src", final_products_images[p_ids_counter])
+            div_cart_container.appendChild(img_div_cart_container);
+
+            // var img_heart_div_cart_container = document.createElement('button');
+            // img_heart_div_cart_container.classList.add('img_heart_div_cart_container');
+            // img_heart_div_cart_container.setAttribute("id", `img_heart_div_cart_container_${all_carted_ids[product_ids]}`);
+            // div_cart_container.appendChild(img_heart_div_cart_container);
+
+            var heading_div_cart_container = document.createElement('h2');
+            heading_div_cart_container.classList.add("heading_div_cart_container");
+            heading_div_cart_container.setAttribute("id", `heading_div_cart_container_${final_products_ids[p_ids_counter]}`);
+            var text_heading = document.createTextNode(final_products_names[p_ids_counter]);
+            heading_div_cart_container.appendChild(text_heading)
+            div_cart_container.appendChild(heading_div_cart_container);
+
+            var price_div_cart_container = document.createElement('div');
+            price_div_cart_container.classList.add("price_div_cart_container");
+            price_div_cart_container.setAttribute("id", `price_div_cart_container_${final_products_ids[p_ids_counter]}`);
+            var text_price = document.createTextNode(final_products_price[p_ids_counter]);
+            price_div_cart_container.appendChild(text_price)
+            div_cart_container.appendChild(price_div_cart_container);
+
+            var remove_item_div_cart_container = document.createElement('button');
+            remove_item_div_cart_container.classList.add("remove_item_div_cart_container");
+            remove_item_div_cart_container.setAttribute("id", `remove_item_div_cart_container_${final_products_ids[p_ids_counter]}`);
+            var remove_item_span = document.createElement('span');
+            remove_item_span.setAttribute("id", `span_remove_item_div_cart_container${final_products_ids[p_ids_counter]}`);
+            remove_item_span.setAttribute("class", `span_remove_item_div_cart_container`);
+            var text_span_remove_item = document.createTextNode('Remove')
+            remove_item_span.appendChild(text_span_remove_item);
+            remove_item_div_cart_container.appendChild(remove_item_span);
+            div_cart_container.appendChild(remove_item_div_cart_container);
+            
+        }
+
+
+
+
+    }
+
+
+
+
+
+
+
+</script>
+{% endblock js %}
