@@ -1,0 +1,38 @@
+{% extends 'app_ecom/base.html' %}
+{% block title %}Products{% endblock title %}
+{% block head %}{% endblock head %}
+{% block css %}
+<style>
+    .p_container{
+        position: relative;
+        top: 60px;
+    }
+    .p_img_bg{
+        position: relative;
+        top: 40px;
+        left: 40px;
+        height: 500px;
+        width: 350px;
+        background-color: rgb(234, 234, 234);
+        display: flex;
+        justify-content: center;
+    }
+    .p_image{
+        height: 300px;
+        width: 300px;
+        position: relative;
+        margin:auto
+    }
+</style>
+{% endblock css %}
+{% block body %}
+
+<div class="p_container">
+    <div class="p_img_bg">
+        <img src="/images/{{product.image}}" alt="" class="p_image">
+    </div>
+</div>
+    
+
+
+ {% endblock body %}
