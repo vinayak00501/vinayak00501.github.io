@@ -1,0 +1,456 @@
+{% extends 'app_shop/base.html' %}
+{% block title %}signup{% endblock title %}
+{% block css %}
+<style>
+    .navbar{
+        background-color: rgb(47, 62, 70);
+    }
+    .signup_container{
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+    }
+    @media (max-width: 500px){
+        .signup_container{
+            flex-direction: column;
+            height: 150vh;
+        }
+    }
+    .signup_form_bg{
+        width: 400px;
+        border: 2px solid rgb(47, 62, 70);
+        height: auto;
+        
+    }
+    .form_rotator{
+        margin: 0px;
+        padding: 0px;
+        height: 100%;
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #12beb8;
+
+        animation-name: form_rotator;
+        animation-duration: 14s;
+        animation-iteration-count: infinite;
+
+        background-color: transparent;
+
+    }
+    /* .signup_form{
+        
+        width: 230px;
+        height: 440px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+
+        border: 4px solid rgb(53, 79, 82);
+        border-radius: 11px;
+        background-color: rgb(53, 79, 82);
+
+        animation-name: anti_rotate;
+        animation-duration: 14s;
+        animation-iteration-count: infinite;
+        
+
+    } */
+    .signup_div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        /* top: -25px; */
+        
+    }
+    /* .signup_pass_div{
+        position: relative;
+        top: -10px;
+    } */
+    /* .signup_input{
+        height: 26px;
+        background-color: rgb(53, 79, 82);
+        border: 0px;
+        border-bottom: 2px solid white;
+        outline: none;
+        color: white;
+    } */
+    /* .signup_label{
+        color: white;
+        position: relative;
+        left: -50px;
+    } */
+    .signup_submit{
+        width: 90%;
+        position: relative;
+        top: -10px;
+        height: 30px;
+        border: 11px;
+        background-color: transparent;
+        color: white;
+        border: 2px solid rgb(82, 121, 111);
+    }
+    .signup_top{
+        background-color: rgb(82, 121, 111);
+        height: 35px;
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+        border-radius: 11px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+    }
+    .signup_extra_content{
+        text-decoration: none;
+        color: white;
+        text-decoration: underline;
+        font-size: 14px;
+        position: relative;
+        /* right: -20px; */
+        /* top: -20px */
+    }
+    .email__{
+        left: -65px;
+    }
+
+
+
+
+
+
+
+
+    /* @keyframes form_rotator {
+        from {
+            transform: rotate(0deg);
+        }
+        to{
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes anti_rotate {
+        from {
+            transform: rotate(0deg);
+        }
+        to{
+            transform: rotate(-360deg);
+        }
+    } */
+
+
+
+
+
+    .get_profile_img_container{
+        height: 500px;
+        width: 300px;
+        /* background-color: red; */
+        position: relative;
+        top: 20px;
+        border-radius: 10px;
+        border: 3px solid rgb(53, 79, 82);
+    }
+    .div_profile_img{
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+    .default_profile_img{
+        height: 80px;
+        width: 80px;
+        margin-left: 10px;
+        padding: 0px;
+        margin: 0px;
+        
+
+    }
+    .default_profile_img_btn{
+        border: 0px;
+        height: 80px;
+        width: 80px;
+        margin: 0px;
+        padding: 0px;
+        background-color: transparent;
+        /* border: 3px solid rgb(53, 79, 82); */
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .default_profile_img_btn_active{
+        border: 3px solid rgb(53, 79, 82);
+
+    }
+
+
+    .signup_form_bg{
+        height: auto;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        background: linear-gradient(rgb(73, 109, 113),rgb(114, 169, 175));
+        min-height: 300px;
+        max-height: auto;
+        align-items: center;
+
+    }
+    .div_signup{
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        /* margin-left: 15px; */
+        margin-bottom: 20px;
+        width: 200px;
+
+    }
+    .signup_input{
+        height: 25px;
+        outline: none;
+        border: 0px;
+        border-bottom: 2px solid rgb(176, 176, 176);
+        width: 100%;
+        color: rgb(217, 217, 217);
+        background-color: transparent;
+
+    }
+    .signup_label{
+        color: white;
+    }
+    .email_submit, .form_submit{
+        width: 70%;
+        position: relative;
+        /* margin-left: 55px; */
+        /* margin-top: 45px; */
+        top: 95px;
+        height: 35px;
+        border: 2px solid rgb(53, 79, 82);
+        background-color: rgb(73, 109, 113);
+        border-radius: 3px;
+        color: white;
+    }
+    input::placeholder{
+        color: rgb(176, 176, 176);
+    }
+    .username_error{
+        color: rgb(255 106 106);
+    }
+    .signup_error{
+        color: rgb(255 106 106);
+        font-weight: 100;
+        font-size: 12px;
+    }
+</style>
+{% endblock css %}
+{% block body %}
+
+<div class="signup_container container">
+<!-- 
+    <div class="signup_form_bg">
+        <div class="form_rotator">
+            <form action="" class="signup_form" method="post">
+                {% csrf_token %}
+                <div class="signup_top">Sign up</div>
+
+                <div class="signup_username_div signup_div">
+                    <label for="signup_username" class="signup_label">Username</label>
+                    <input type="text" id="signup_username" name="signup_username" class="signup_input">
+                </div>
+
+                <div class="signup_email_div signup_div">
+                    <label for="signup_email" class="signup_label email__">Email   </label>
+                    <input type="email" id="signup_email" name="signup_email" class="signup_input" required>
+                </div>
+
+                <div class="signup_first_name_div signup_div">
+                    <label for="signup_first_name" class="signup_label">First Name</label>
+                    <input type="text" id="signup_first_name" name="signup_first_name" class="signup_input">
+                </div>
+                
+                <div class="signup_last_name_div signup_div">
+                    <label for="signup_last_name" class="signup_label">Last Name</label>
+                    <input type="text" id="signup_last_name" name="signup_last_name" class="signup_input">
+                </div>
+
+                <div class="signup_pass_div signup_div">
+                    <label for="signup_pass" class="signup_label">Password</label>
+                    <input type="password" id="signup_pass" name="signup_pass" class="signup_input">
+                </div>
+
+                <div class="signup_img_div">
+                    <input type="hidden" id="signup_img" name="signup_img" class="signup_input" value="default_1.jpg">
+                </div>
+
+
+                <button class="signup_submit" type="submit">Submit</button>
+            </form>
+        </div>
+    </div> -->
+
+
+    {% if state == "cleared_nothing" %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="signup_form_bg">
+            
+            <div class="div_signup_email div_signup">
+                <label for="input_email" class="label_email signup_label">Email</label>
+                <input type="email" class="input_email signup_input" name="input_email" required>
+            </div>
+            <button class="email_submit form_submit" type="submit">Submit</button>
+        </div>
+    </form>
+    {% endif %}
+
+    {% if state == "cleared_sent_otp" %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="signup_form_bg">
+            <div class="div_signup_otp div_signup">
+                <label for="input_otp" class="label_otp signup_label">Otp</label>
+                <input type="number" class="input_otp signup_input" name="input_otp" required>
+            </div>
+            <button class="otp_submit form_submit" type="submit">Submit</button>
+            <input class="js_otp" name="js_otp" type="hidden">
+        </div>
+    </form>
+    {% endif %}
+
+    {% if state == "cleared_otp" %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="signup_form_bg">
+            <h3 style="color: white">Sign Up</h3>
+
+            <div class="div_username div_signup">
+                <label for="" class="label_username signup_label">Username</label>
+                <input type="text" class="input_username signup_input" name="input_username" >
+                
+                <div class="username_error signup_error">
+                    {% if error == "username" %}
+                        {% for message in messages %}
+                            *{{message}}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                
+            </div>
+
+            <!-- <div class="div_email div_signup">
+                <label for="" class="label_email signup_label">Email</label>
+                <input type="email" class="input_email signup_input" name="input_email" required >
+            </div> -->
+
+            <div class="div_password1 div_signup">
+                <label for="" class="label_password1 signup_label">Password</label>
+                <input type="password" class="input_password1 signup_input" name="input_password1" >
+                <div class="internal_password_error signup_error">
+                    {% if error == "internal_password_error" %}
+                        {% for message in messages %}
+                            *{{message}}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="div_password2 div_signup">
+                <label for="" class="label_password2 signup_label">Password again</label>
+                <input type="password" class="input_password2 signup_input" name="input_password2" >
+
+                <div class="password_error signup_error">
+                    {% if error == "password" %}
+                        {% for message in messages %}
+                            *{{message}}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+            </div>
+            <input class="email_input_last" id="email_input_last" name="email_input_last" hidden>
+
+            <button class="final_submit form_submit" type="submit" onclick="send_email_back()">Submit</button>
+        </div>
+    </form>
+    {% endif %}
+
+    {% for message in messages  %}
+    {{message}}
+    {% endfor %}
+
+    <!-- {{state}} -->
+
+
+
+
+
+
+    <!-- <div class="get_profile_img_container">
+        <div class="div_profile_img">
+            <button class="default_profile_img_btn" id="default_profile_img_btn_1" onclick="get_selected_img(this.id)">
+                <img class="default_profile_img" id="default_profile_img_1" src="/media/app_shop/profile_images/default_1.png">
+            </button>
+            <button class="default_profile_img_btn" id="default_profile_img_btn_2" onclick="get_selected_img(this.id)">
+                <img class="default_profile_img" id="default_profile_img_2" src="/media/app_shop/profile_images/default_2.png">
+            </button>
+            <button class="default_profile_img_btn" id="default_profile_img_btn_3" onclick="get_selected_img(this.id)">
+                <img class="default_profile_img" id="default_profile_img_3" src="/media/app_shop/profile_images/default_3.png">
+            </button>
+        </div>
+    </div>
+    
+</div> -->
+
+
+
+{% endblock body %}
+{% block js %}
+
+<script>
+
+    function get_selected_img(id){
+        var all_profile_img_items = document.getElementsByClassName("default_profile_img_btn")
+        for(element in all_profile_img_items){
+            all_profile_img_items[element].className = "default_profile_img_btn"
+        }
+        document.getElementById(id).className = "default_profile_img_btn default_profile_img_btn_active"
+        img_path = `default_${id[id.length - 1]}.jpg`
+        document.getElementById("signup_img").setAttribute("value", img_path);
+        // console.log(document.getElementById("signup_img"))
+    }
+
+    var check_email = `{{email}}`
+    var otp = `{{otp}}`
+    data = {}
+    data[check_email] = otp
+    data = String(data)
+    if (check_email != ""){
+        localStorage.setItem("email", check_email)
+    }
+    if (otp != ""){
+        localStorage.setItem("otp", otp)
+    }
+    document.getElementsByClassName("js_otp")[0].setAttribute("value", localStorage.getItem("otp"))
+    console.log(localStorage.getItem("email"), "email")
+
+    // sending email back again
+    function send_email_back(){
+        document.getElementById("email_input_last").setAttribute("value", localStorage.getItem("email"))
+    }
+
+
+
+
+</script>
+
+{% endblock js %}

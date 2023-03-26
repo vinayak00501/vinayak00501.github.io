@@ -1,0 +1,345 @@
+{% extends 'app_shop/base.html' %}
+
+{% block css %}
+
+<style>
+    .index_img_container {
+        width: 98.9vw;
+        height: 470px;
+        overflow: hidden;
+        background-color: black;
+        margin: 0px;
+        padding: 0px;
+
+
+    }
+
+    .index_img {
+        height: 170%;
+        width: 100rem;
+        opacity: 0.7;
+        position: relative;
+
+        z-index: 10;
+    }
+
+    .index_img::before {
+        content: "";
+        background: rgb(0, 0, 0);
+    }
+
+    /* body{
+        height: 100000px;
+    } */
+    .index_img_h1 {
+        z-index: 11;
+        position: relative;
+        top: -750px;
+        color: rgb(255, 255, 255);
+        padding-left: 3rem;
+        font-family: var(--text_family);
+        font-size: 3rem;
+        text-shadow: 2px 2px rgba(255, 255, 255, 0.436);
+    }
+
+    .index_img_p {
+        z-index: 11;
+        position: relative;
+        top: -750px;
+        color: rgb(255, 255, 255);
+        padding-left: 3rem;
+        font-family: var(--text_family);
+        font-size: 1rem;
+        width: 25em;
+    }
+
+    @media (max-width: 480px) {
+        .index_img_p {
+            width: 20rem;
+        }
+    }
+
+    .index_img_btn {
+        z-index: 11;
+        position: relative;
+        top: -710px;
+        color: white;
+        margin-left: 3rem;
+        font-family: var(--text_family);
+        font-size: 1rem;
+        width: 10em;
+        height: 35px;
+        /* background-color: rgba(208, 39, 39, 0.611);
+        border: 2px solid rgb(208, 39, 39); */
+        /* background-color: #39d0aaae; */
+        background: transparent;
+        /* border: 2px solid #39d0aa; */
+        border: 2px solid rgb(53, 79, 82);
+        border-radius: 7px;
+    }
+
+    @media (max-width: 740px) {
+        .index_img {
+            left: -350px;
+            top: -120px;
+        }
+    }
+
+    @media (max-width: 580px) {
+        .index_img_btn {
+            margin-left: 1rem;
+        }
+
+        .index_img_h1,
+        .index_img_p {
+            padding-left: 1rem;
+        }
+
+        .index_img_h1 {
+            font-size: 2rem;
+        }
+    }
+
+
+
+
+
+
+
+
+    .all_product_container {
+        /* border: 1px solid red; */
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        overflow-wrap: normal;
+        flex-wrap: wrap;
+        height: auto;
+        /* background-color: black; */
+        flex-direction: column;
+
+    }
+
+    .p_card {
+        border: 2px solid rgb(47, 62, 70);
+        width: 252px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+        height: 350px;
+        overflow: hidden;
+
+    }
+
+    .p_card_img {
+        max-width: 225px;
+        max-height: 225px;
+        cursor: pointer;
+    }
+
+    .p_card_name {
+        padding-left: 8px;
+        padding-right: 8px;
+        position: relative;
+        height: 26px;
+        /* border: 1px solid blue; */
+        overflow: hidden;
+
+
+    }
+
+    .p_card_price {
+        position: relative;
+        left: 85px;
+        top: -10px;
+        color: rgb(47, 62, 70);
+        font-weight: 600;
+        margin-bottom: 0px;
+    }
+
+    .cat {
+        display: flex;
+        flex-direction: row;
+        /* height: 370px; */
+        flex-wrap: wrap;
+        /* overflow-wrap: normal;
+        overflow-x: scroll;
+        overflow-y: hidden; */
+        /* overflow-wrap: normal; */
+        /* width: 100%; */
+        /* overflow: scroll; */
+    }
+    .cat_name{
+        font-weight: 1000;
+        font-size: 25px;
+        padding-left: 12px;
+        margin: 8px;
+    }
+    .p_card_add_to_cart{
+        width: 95%;
+        height: 44px;
+        position: relative;
+        top: -5px;
+        background: rgb(53, 79, 82);
+        border: 0px;
+        color: white;
+        transition-property: all;
+        transition-duration: 0.3s;
+    }
+    .p_card_add_to_cart:hover{
+        background: rgb(47, 62, 70);
+    }
+
+
+
+
+    /* media queries for mobile */
+
+
+    @media (max-width: 500px){
+        .p_card{
+            /* width: 176.4px;
+            height: 245px; */
+            width: 43vw;
+            height: 200px;
+        }
+        .p_card_img{
+            height: 135px;
+            width: 135px;
+        }
+        .p_card_price{
+            left: 43px;
+            font-size: 11px;
+        }
+        .p_card_name{
+            font-size: 12px;
+            top: -20px;
+            margin: 0px;
+            text-align: center;
+            /* margin-top: 10px;
+            margin-bottom: 10px; */
+        }
+        .p_card_add_to_cart{
+            height: 38px;
+            font-size: 10px;
+            width: 95%;
+        }
+
+
+
+        .index_img_btn{
+            font-size: 14px;
+        }
+    }
+</style>
+
+{% endblock css %}
+
+{% block body %}
+<div class="index_container">
+
+
+
+    
+
+    <div class="index_img_container">
+        <img src="/media/app_shop/images/shopping_primary.jpg" alt="" class="index_img">
+        <h1 class="index_img_h1">
+            Fantasy Stores At your DOORS
+        </h1>
+        <p class="index_img_p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam eius, a similique
+            recusandae odit quas non voluptatibus, dolore est ipsam necessitatibus nulla qui. Minima, excepturi rerum
+            nam voluptatum omnis blanditiis.</p>
+        <button class="index_img_btn" onclick="go_to_about()">Know Us</button>
+    </div>
+
+
+    <div class="all_product_container">
+        {% for cat in categories %}
+            <p class="cat_name">{{cat|title}}</p>
+            <div class="{{cat}} cat">
+                {% for p in product %}
+                    {% if p.5 == cat %}
+                        <div class="p_card" id="p_card_{{p.0}}">
+                            <a href="product_view_{{p.0}}"><img class="p_card_img" id="p_card_img_{{p.0}}" src="/media/{{p.4}}"></a>
+                            <p class="p_card_name" id="p_card_name_{{p.0}}">{{p.1|slice:"0:20"}}
+                                {% if p.1|length > 20 %}
+                                ..
+                                {% endif %}
+                            </p>
+                            <p class="p_card_price" id="p_card_price_{{p.0}}">RS {{p.2}}</p>
+                            <button class="p_card_add_to_cart" id="b_{{p.0}}" onclick="clicked_add_to_cart(this.id)"> <!--js in base.html-->
+                                Add To Cart
+                            </button>
+
+
+                            <!-- rest of the Information would be display none -->
+                            <div id="p_card_id_{{p.0}}" style="display: none">{{p.0}}</div>
+                            <div id="p_card_desc_{{p.0}}" style="display : none">{{p.3}}</div>
+                            <div id="p_card_category1_{{p.0}}" style="display : none">{{p.5}}</div>
+                            <div id="p_card_category2_{{p.0}}" style="display : none">{{p.6}}</div>
+                            <div id="p_card_category3_{{p.0}}" style="display : none">{{p.7}}</div>
+                            <div id="p_card_images_{{p.0}}" style="display : none">{{p.8}}</div>
+                            <div id="p_card_img_id_{{p.0}}" style="display : none">{{p.9}}</div>
+                            
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% csrf_token %}
+
+{% for message in messages %}
+{{message}}
+{% endfor %}
+{% endblock body %}
+
+{% block js %}
+
+<script>
+
+    console.log(window.location)
+
+    
+
+    function change_on_scroll() {
+        body = document.querySelector('body');
+        navbar = document.querySelector('.navbar');
+        this.scrollY > 500 ? navbar.style.background = 'rgb(47, 62, 70)' : navbar.style.background = 'rgb(0, 0, 0, 0)';
+    }
+    window.addEventListener("scroll", change_on_scroll, false);
+
+
+    function go_to_about() {
+        window.open("about", "_self")
+    }
+
+
+
+
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+</script>
+
+{% endblock js %}

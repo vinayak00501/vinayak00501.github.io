@@ -1,0 +1,481 @@
+{% extends 'app_shop/base.html' %}
+{% block title %}{% endblock title %}
+{% block css %}
+
+<style>
+    .product_view_container{
+        display: flex;
+        flex-direction: row;
+        height: auto;
+    }
+    .navbar{
+        background-color: rgb(47, 62, 70);
+    }
+    .pv_image_bg{
+        margin-left: 10px;;
+        /* background-color: grey; */
+        height: 510px;
+        width: 510px;
+        /* background:rgb(47, 62, 70); */
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        border-bottom: 8px solid rgb(47, 62, 70);
+
+        display: flex;
+        flex-direction: column;
+
+
+        /* height: auto;
+        width: auto;
+        max-height: 550px;
+        max-width: 550px;
+        min-width: 350px;
+        min-height: 350px; */
+        
+    }
+    .pv_image{
+        /* height: auto;
+        width: auto; */
+        /* max-height: 550px;
+        max-width: 550px;
+        min-width: 350px;
+        min-height: 350px; */
+        /* height: 550px;
+        width: 550px; */
+        height: 500px;
+        width: 500px;
+
+        cursor:crosshair;
+    }
+    .pv_content{
+        position: relative;
+        top: 70px;
+        padding-right: 100px;
+        margin-left: 20px;
+    }
+    .pv_name{
+        font-weight: 100;
+        font-size: 25px;
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+        padding-top: 0px;
+    }
+    .pv_price{
+        font-weight: 1000;
+        font-size: 20px;
+        color: rgb(47, 62, 70);
+    }
+    .pv_desc{
+        font-size: 16px;
+        margin-top: 0px;
+        padding-top: 10px;
+    }
+    .add_to_cart{
+        width: 160px;
+        height: 38px;
+        margin-left: 8px;
+        margin-top: 8px;
+        background: transparent;
+        border: 2px solid rgb(53, 79, 82);
+        transition-property: all;
+        transition-duration: 0.3s;
+    }
+    .add_to_cart:hover{
+        background: rgb(53, 79, 82);
+        color: white;
+    }
+    .pv_purchase{
+        width: 160px;
+        height: 38px;
+        margin-right: 8px;
+        margin-top: 8px;
+        background-color: rgb(53, 79, 82);
+        color: white;
+        border: 0px;
+        border-radius: 0px;
+        transition-property: all;
+        transition-duration: 0.3s;
+
+    }
+    .pv_purchase:hover{
+        transform: translateY(-4px);
+        border-radius: 5px;
+    }
+
+
+
+
+    /* media query for mobiles */
+
+    @media (max-width: 831px){
+        .product_view_container{
+            flex-direction: column;
+            /* justify-content: space-around; */
+            /* justify-content: center; */
+            align-items: center;
+        }
+        .pv_image_bg{
+            height: 350px;
+            width: 96vw;
+            display: flex;
+            /* margin-bottom: 100px; */
+            justify-content: center;
+            align-items: center;
+            margin: 0px;
+            padding: 0px;
+            border-bottom: 4px solid rgb(47, 62, 70);
+            
+        }
+        .pv_image{
+            height: 300px;
+            width: 300px;
+        }
+        .pv_content{
+            padding-right: 15px;
+            margin-left: 0px;
+            padding-left: 15px;
+            position: relative;
+            top: 0px;
+        }
+        .pv_name{
+            font-size: 22px;
+        }
+        .pv_price{
+            font-size: 18px;
+            margin-top: 7px;
+        }
+        .pv_desc{
+            font-size: 15px;
+        }
+        .pv_btns{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .add_to_cart{
+            width: 135px;
+            font-size: 14px;
+        }
+        .pv_purchase{
+            width: 135px;
+            font-size: 14px;
+        }
+    }
+
+    .hidden_{
+        display: none;
+    }
+
+
+
+    @media (min-width: 832px) and (max-width: 1100px){
+        .pv_content{
+            padding-right: 10px;
+        }
+        .pv_image, .pv_image_bg{
+            width: 465px;
+            height: 465px;
+        }
+        
+    }
+
+    #user_profile_img_icon{
+        height: 60px;
+        width: 60px;
+    }
+    .all_comments{
+        /* position: relative; */
+        margin-top: 65px;
+        margin-left: 50px;
+        width: 90vw;
+    }
+    
+    .pv_comment{
+        display: flex;
+        align-items: center;
+        width: 500px;
+    }
+    .user_comment{
+        outline: none;
+        border: 0px;
+        border-bottom: 1px solid rgb(47, 62, 70);
+        position: relative;
+        left: 15px;
+        resize: auto;
+        max-width: 300px;
+        max-height: 150px;
+    }
+    .comment_form{
+        display: flex;
+        align-items: center;
+        
+    }
+    .submit_comment{
+        height: 30px;
+        width: 80px;
+        position: relative;
+        left: 25px;
+        border: 0px;
+        background-color: rgb(47, 62, 70);
+        color: white;
+        border-radius: 3px;
+    }
+    .other_comments{
+        position: relative;
+        /* border: 1px solid black; */
+        width: 90vw;
+        top: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    .other_comments_h{
+        font-size: 17px;
+        position: relative;
+        top: 10px;
+    }
+
+    .comment_element{
+        display: flex;
+        flex-direction: row;
+        /* border: 2px solid red; */
+        border-bottom: 0.5px solid rgb(91, 91, 91);
+        margin-top: 15px;
+    }
+
+    .comment_element_img{
+        height: 50px;
+        width: 50px;
+        border: 50%;
+    }
+    .comment_element_content{
+        margin-left: 6px;
+    }
+    .comment_element_content_username{
+        font-size: 17px;
+    }
+    .comment_element_content_body{
+        margin-top: 4px;
+        font-size: 14px;
+        color: rgb(99, 99, 99);
+        margin-bottom: 6px;
+    }
+    .other_images{
+        /* border: 2px solid black; */
+        width: auto;
+        height: 82px;
+        margin-top: 60px;
+        margin-left: 5px;
+        display: flex;
+        align-items: center;
+        overflow-x: hidden;
+        scroll-behavior: auto;
+    }
+    .other_images_btn{
+        height: 78px;
+        width: 78px;
+        margin-left: 4px;
+        background-color: transparent;
+        /* border: 1px solid red; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 0px;
+        border-bottom: 1px solid rgb(47, 62, 70);
+        cursor: pointer;
+    }
+    .other_images_btn_img{
+        height: 78px;
+        width: 78px;
+        
+    }
+
+    @media (max-width: 500px){
+        .all_comments{
+            /* left: 10px; */
+            width: 80vw;
+            margin-left: 10px;
+        }
+        #user_profile_img_icon{
+            height: 45px;
+            width: 45px;
+        }
+        .comment_element_img{
+            height: 45px;
+            width: 45px;
+        }
+        .comment_element{
+            width: 80vw;
+        }
+        .pv_comment{
+            width: 40vw;
+        }
+        .submit_comment{
+            font-size: 12px;
+            width: 70px;
+            height: 30px;
+        }
+    }
+
+</style>
+
+{% endblock css %}
+{% block body %}
+    <div class="product_view_container container">
+        <div class="pv_image_bg">
+            <img class="pv_image" src="/media/{{product_view.4}}">
+
+        </div>
+        
+        <div class="pv_content"> <!--pv - product_view -->
+            <p class="pv_name">{{product_view.1}}</p>
+            <p class="pv_price">RS {{product_view.2}}</p>
+            <p style="font-size: 18px; padding-top: 20px; font-weight:600; margin-bottom: 0px; padding-bottom: 0px;">Know About Product</p>
+            <p class="pv_desc">{{product_view.3}}</p>
+
+            <p class="pv_id hidden_">{{product_view.0}}</p>
+            <p class="pv_category1 hidden_">{{product_view.5}}</p>
+            <p class="pv_category2 hidden_">{{product_view.6}}</p>
+            <p class="pv_category3 hidden_">{{product_view.7}}</p>
+            <p class="pv_images hidden_">{{product_view.8}}</p>
+            <p class="pv_img_id hidden_">{{product_view.9}}</p>
+
+            <div class="pv_btns">
+                <button class="pv_purchase">Buy Now</button>
+                <button class="add_to_cart" onclick="product_view_add_to_cart()">Add To Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- implementing other images -->
+    <div class="other_images">
+            <button class="other_images_btn" onclick="show_on_big_screen(this, '{{product_view.4}}')">
+                <img class="other_images_btn_img" src="/media/{{product_view.4}}">
+            </button>
+        {% for image in other_images %}
+            <button class="other_images_btn" id="other_images_btn_{{loop.count}}" onclick="show_on_big_screen(this, '{{image.image}}')">
+                <img class="other_images_btn_img" src="/media/{{image.image}}">
+            </button>
+        {% endfor %}
+    </div>
+
+    <!-- All comments here -->
+    <div class="all_comments">
+        <div class="pv_comment">
+            <form action="" method="post" class="comment_form">
+                {% csrf_token %}
+                <img src="/media/app_shop/profile_images/{{user_profile.0.profile_img}}" id="user_profile_img_icon">
+                <textarea type="text" class="user_comment" name="user_comment" placeholder="Add Comment"></textarea>
+                <button type="submit" class="submit_comment">Comment</button>
+            </form>
+        </div>
+
+
+        {% if product_view.10|length != 0 %}
+        <span class="other_comments_h">
+            Comments
+        </span>
+        {% endif %}
+
+        <!-- implementing other comments -->
+        <div class="other_comments">
+
+            <!-- {{product_view.10.0.body}} -->
+
+            {% for comment in product_view.10 %}
+            
+            <div class="comment_element">
+                <img class="comment_element_img" src="/media/app_shop/profile_images/{{comment.user_profile.profile_img}}">
+                <div class="comment_element_content">
+                    <div class="comment_element_content_username">{{comment.user_profile.user.username}}</div>
+                    <div class="comment_element_content_body">{{comment.body|slice:"900"}}</div>
+                    
+                </div>
+            </div>
+
+            {% endfor %}
+
+
+            
+
+        </div>
+    </div>
+{% endblock body %}
+{% block js %}
+<script>
+    navbar = document.querySelector('.navbar');
+    navbar.style.background = 'rgb(47, 62, 70)';
+
+
+    // var pv_container_h =  document.querySelector('.product_view_container').offsetHeight;
+    // var new_pv_page_height = Number(pv_container_h) + 100;
+    // document.querySelector('.product_view_container').style.height = new_pv_page_height + "px";
+    // console.log(pv_container_h)
+
+
+    function product_view_add_to_cart(){
+        id = document.getElementsByClassName("pv_id")[0].innerHTML
+        name = document.getElementsByClassName("pv_name")[0].innerHTML
+        price = document.getElementsByClassName("pv_price")[0].innerHTML
+        desc = document.getElementsByClassName("pv_desc")[0].innerHTML
+        image = document.getElementsByClassName("pv_image")[0].src
+        category1 = document.getElementsByClassName("pv_category1")[0].innerHTML
+        category2 = document.getElementsByClassName("pv_category2")[0].innerHTML
+        category3 = document.getElementsByClassName("pv_category3")[0].innerHTML
+        images = document.getElementsByClassName("pv_images")[0].innerHTML
+        img_id = document.getElementsByClassName("pv_img_id")[0].innerHTML
+        quantity = 1
+
+        final_product = [id, name, price, desc, image, category1, category2, category3, images, img_id, quantity]
+
+        if (localStorage.getItem('v_cart') == null){
+        var v_cart = {}
+        }
+        else{
+        v_cart = JSON.parse(localStorage.getItem('v_cart'));
+        }
+
+        v_cart['p' + id] = final_product
+        localStorage.setItem('v_cart', JSON.stringify(v_cart))
+        console.log(v_cart)
+
+
+        
+        
+    }
+
+    function eddited_img_src(){
+        url_ = `{{user_profile.0.profile_img}}`
+        new_url = url_.replace(".jpg", ".png")
+        new_url = `/media/app_shop/profile_images/${new_url}`
+        console.log(new_url)
+
+        
+    }
+    eddited_img_src()
+
+    
+
+
+    // function print_other_comments(){
+    //     list = `{{c|safe}}`
+    //     list_ = JSON.parse(list)
+    //     console.log(list_)
+
+        
+
+
+
+    // }
+    // print_other_comments() 
+
+    function show_on_big_screen(btn, img_url){
+        url = `/media/${img_url}`
+        document.getElementsByClassName("pv_image")[0].setAttribute("src", url)
+        btn.style.borderBottom = "2px solid rgb(47, 62, 70)"
+
+    }
+    
+</script>
+{% endblock js %}

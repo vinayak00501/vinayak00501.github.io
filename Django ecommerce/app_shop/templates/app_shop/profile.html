@@ -1,0 +1,173 @@
+{% extends 'app_shop/base.html' %}
+{% block title %}Profile{% endblock title %}
+{% block css %}
+
+<style>
+    .navbar{
+        background-color: rgb(47, 62, 70);
+    }
+    .profile_container{
+        width: 500px;
+        margin: auto;
+        border-bottom: 5px solid rgb(47, 62, 70);
+    }
+    .open_profile_img{
+        height: 150px;
+        width: 150px;
+    }
+    .div_open_profile_img{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .div_open_profile_img span{
+        margin-left: 50px;
+    }
+    .open_profile_img_change span{
+        font-weight: bold;
+    }
+    .profile_info{
+        margin-top: 30px;
+    }
+    .profile_info_text{
+        color: black;
+        font-weight: 100;
+        padding-left: 15px;
+    }
+    .profile_username_label{
+        color: black;
+        padding-left: 10px;
+        font-weight: bold;
+        /* max-width: 100px; */
+    }
+    .profile_username{
+        display: flex;
+        justify-content: space-between;
+        max-width: 400px;
+    }
+    .profile_location{
+        display: flex;
+        justify-content: space-between;
+        max-width: 400px;
+    }
+    .profile_input_changes{
+        border: 0px;
+        outline: none;
+        border-bottom: 0.5px solid rgb(47, 62, 70);
+    }
+    .profile_label{
+        font-weight: bold;
+        padding-left: 15px;
+    }
+    .profile_info_content{
+        margin-top: 35px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .profile_bio{
+        flex-direction: column;
+    }
+    .new_change_profile_bio{
+        margin-top: 10px;
+        padding-left: 15px;
+        width: 90%;
+        max-width: 450px;
+    }
+    .confirm_profile_changes{
+        justify-content: end;
+        margin-top: 60px;
+    }
+    .open_profile_cancel{
+        margin-bottom: 5px;
+        margin-right: 20px;
+        height: 35px;
+        text-align: center;
+        align-items: center;
+        width: 80px;
+        background-color: transparent;
+        border: 1px solid rgb(47, 62, 70);
+
+        text-decoration: none;
+        color: rgb(47, 62, 70);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .open_profile_save{
+        margin-bottom: 5px;
+        margin-right: 15px;
+        height: 35px;
+        text-align: center;
+        width: 80px;
+        background-color: rgb(47, 62, 70);
+        border: 0px;
+        color: white;
+    }
+</style>
+
+{% endblock css %}
+{% block body %}
+
+<form action="" method="POST"> 
+    {% csrf_token %}
+
+    <div class="profile_container container">
+        <div class="div_open_profile_img">
+            <img src="" class="open_profile_img" id="open_profile_img">
+            <div class="open_profile_img_change">
+                <span>Change Image</span>
+                <input type="file" class="new_change_profile_img" name="new_change_profile_img" id="new_change_profile_img">
+            </div>
+        </div>
+
+        <div class="profile_info">
+
+            <div class="profile_username">
+                <div class="profile_username_label profile_info_text">Username</div>
+                <div class="profile_username_label_content profile_info_text">{{user_profile.0.user.username|title}}</div>
+                <input type="text" placeholder="Change Username" class="new_change_profile_username profile_input_changes" id="new_change_profile_username" name="new_change_profile_username">
+            </div>
+
+            <div class="profile_location profile_info_content">
+                <div class="profile_location_label profile_info_text profile_label">Location</div>
+                <div class="profile_location_label_content profile_info_text">{{user_profile.0.location}}</div>
+                <input type="text" placeholder="Change Location" class="new_change_profile_location profile_input_changes" id="new_change_profile_location" name="new_change_profile_location">
+            </div>
+
+            <div class="profile_bio profile_info_content">
+                <div class="profile_bio_label profile_info_text profile_label">Bio</div>
+                <div class="profile_bio_label_content profile_info_text">{{user_profile.0.bio}}</div>
+                <textarea type="text" placeholder="Change bio" class="new_change_profile_bio profile_input_changes" id="new_change_profile_bio" name="new_change_profile_bio"></textarea>
+            </div>
+
+            <div class="confirm_profile_changes profile_info_content">
+                <a href="/fshop" class="open_profile_cancel">Cancel</a>
+                <button type="submit" class="open_profile_save">Save</button>
+            </div>
+
+        </div>
+    </div>
+
+</form>
+
+{% endblock body %}
+{% block js %}
+
+<script>
+    function edit_profile_img(){
+    url_link = `{{user_profile.0.profile_img.url}}`
+    new_url_link = url_link.replace(".jpg", ".png")
+    new_url_link = new_url_link.replace("/media/", "/media/app_shop/profile_images/")
+
+    document.getElementById("open_profile_img").setAttribute("src", new_url_link)
+    // console.log(new_url_link)
+}
+edit_profile_img()
+
+
+function get_back_to_index(){
+    
+}
+</script>
+
+{% endblock js %}

@@ -1,0 +1,192 @@
+{% extends 'app_shop/base.html' %}
+{% block title %}Login{% endblock title %}
+{% block css %}
+<style>
+    .navbar{
+        background-color: rgb(47, 62, 70);
+    }
+    .login_container{
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60vh;
+    }
+    .login_form_bg{
+        width: 250px;
+        margin: auto;
+        height: 320px;
+        background-color: rgb(47, 62, 70);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border-radius: 11px;
+        
+    }
+    .form_rotator{
+        margin: 0px;
+        padding: 0px;
+        height: 100%;
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #12beb8;
+
+        animation-name: form_rotator;
+        animation-duration: 14s;
+        animation-iteration-count: infinite;
+
+        background-color: transparent;
+
+    }
+    .login_form{
+        
+        width: 230px;
+        height: 300px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+
+        border: 4px solid rgb(53, 79, 82);
+        border-radius: 11px;
+        background-color: rgb(53, 79, 82);
+
+        animation-name: anti_rotate;
+        animation-duration: 14s;
+        animation-iteration-count: infinite;
+        
+
+    }
+    .login_div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        
+    }
+    .login_pass_div{
+        position: relative;
+        top: -10px;
+    }
+    .login_input{
+        height: 26px;
+        background-color: rgb(53, 79, 82);
+        border: 0px;
+        border-bottom: 2px solid white;
+        outline: none;
+        color: white;
+    }
+    .login_label{
+        color: white;
+        position: relative;
+        left: -50px;
+    }
+    .login_submit{
+        width: 90%;
+        position: relative;
+        top: -10px;
+        height: 30px;
+        border: 11px;
+        background-color: transparent;
+        color: white;
+        border: 2px solid rgb(82, 121, 111);
+    }
+    .login_top{
+        background-color: rgb(82, 121, 111);
+        height: 35px;
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+        border-radius: 11px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+    }
+    .login_extra_content{
+        text-decoration: none;
+        color: white;
+        text-decoration: underline;
+        font-size: 14px;
+        position: relative;
+        /* right: -20px; */
+        /* top: -20px */
+    }
+
+
+
+
+
+
+
+
+    /* @keyframes form_rotator {
+        from {
+            transform: rotate(0deg);
+        }
+        to{
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes anti_rotate {
+        from {
+            transform: rotate(0deg);
+        }
+        to{
+            transform: rotate(-360deg);
+        }
+    } */
+</style>
+{% endblock css %}
+{% block body %}
+
+<div class="login_container container">
+
+    <div class="login_form_bg">
+        <div class="form_rotator">
+            <form action="" class="login_form" method="post">
+                {% csrf_token %} 
+                <div class="login_top">Login</div>
+
+                <div class="login_username_div login_div">
+                    <label for="login_username" class="login_label">Username</label>
+                    <input type="text" id="login_username" name="login_username" class="login_input">
+                </div>
+
+                <div class="login_pass_div login_div">
+                    <label for="login_pass" class="login_label">Password</label>
+                    <input type="password" id="login_pass" name="login_pass" class="login_input">
+                </div>
+
+                <a href="/fshop/signup_" class="login_extra_content">
+                    Dont have an account ?
+                </a>
+
+                <button class="login_submit" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    
+</div>
+
+
+
+{% endblock body %}
+{% block js %}
+
+<script>
+    function go_to_index_from_login(){
+        window.open("/fshop/", "_self")
+    }
+</script>
+
+{% endblock js %}

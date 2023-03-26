@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/profile.css' rel='stylesheet'>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/shopping-cart.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        :root{
+            --hover_text_color : rgb(208, 208, 208);
+            --text_color: white;
+            --navbarbg: rgb(209, 55, 55);
+            --text_family: cursive;
+            --primaryclr: rgb(208, 39, 39);
+            --btncta: #39d0aa;
+        }
+        .container{
+            position: relative;
+            top: 60px;
+        }
+        body{
+            padding: 0px;
+            margin: 0px;
+            background-color: white;
+        }
+        .navbar{
+            display: block;
+            position: fixed;
+            width: 100vw;
+            height: 60px;
+            background: transparent;
+            padding: 0px;
+            margin: 0px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            z-index: 10000;
+            transition-property: all;
+            transition-duration: 0.5s;
+        }
+        .logo{
+            display: flex;
+            align-items: center;
+            transition-property: all;
+            transition-duration: 0.2s;
+        }
+        .logo_img{
+            height: 40px;
+            width: 120px;
+            margin-left: 20px;
+        }
+        .logo:hover{
+            transform: scale(1.1);
+        }
+        .navlist{
+            display: flex;
+            width: 20rem;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px;
+            list-style: none;
+        }
+        .navlink{
+            text-decoration: none;
+            color: var(--text_color);
+        }
+        .navlink::after{
+            content: "";
+            background-color: red;
+            width: auto;
+        }
+        .navitems{
+            transition-property: all;
+            transition-duration: 0.2s;
+
+        }
+
+        .navitems:hover{
+            color:var(--hover_text_color)
+        }
+        .side_content{
+            display: flex;
+            flex-direction: row;
+        }
+        .navlogin{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            /* margin-right: 20px; */
+            height: 100%;
+            background: transparent;
+            border: 0px;
+            align-items: center;
+            color: var(--text_color);
+            transition-property: all;
+            transition-duration: 0.2s;
+        }
+
+
+        
+        .navlogin_text{
+            padding-left: 10px;
+        }
+        .navlogin:hover{
+            color: var(--hover_text_color)
+        }
+        .navcart{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-right: 20px;
+            height: 100%;
+            background: transparent;
+            border: 0px;
+            align-items: center;
+            color: var(--text_color);
+            transition-property: all;
+            transition-duration: 0.2s;
+        }
+        @media (max-width: 600px){
+            .navcart{
+                display: none;
+            }
+            .navlogin{
+                margin-right: 10px;
+            }
+        }
+        .navcart_text{
+            padding-left: 10px;
+        }
+        .navcart:hover{
+            color: var(--hover_text_color)
+        }
+
+
+        .navmenu{
+            /* display: none; */
+            width: 60px;
+            margin-left: 8px;
+            /* display: flex; */
+            display: none;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            background: transparent;
+            border: 0px;
+        }
+        @media (max-width: 885px){
+            .navmenu{
+                display: flex;
+            }
+            .navlist{
+                display: none;
+            }
+        }
+        .line{
+            display: block;
+            height: 1px;
+            border: 1px solid white;
+            width: 30px;
+            background-color: rgb(255, 255, 255);
+            position: relative;
+            padding: 0px;
+            margin: 0px;
+        }
+        #line1{
+            top: 6px;
+        }
+        #line3{
+            top: -6px;
+        }
+
+        .menu{
+            display: block;
+            position: fixed;
+            /* background-color: rgb(162, 47, 47); */
+            background: rgb(47, 62, 70);
+            height: 100vh;
+            width: 0px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        @media (max-width: 750px){
+            .navlist{
+                display: none;
+            }
+
+
+        
+        }
+
+        .menu_logo{
+            width: 90%;
+            display: flex;
+            justify-content: center;
+            height: 70px;
+            border-bottom: 0.5px solid rgb(53, 79, 82);
+            align-items: center;
+
+        }
+        .menu_logo_img{
+            height: 40px;
+            width: 120px;
+            margin-top: 10px;
+            display: none;
+        }
+        .menu_options{
+            /* width: 90%; */
+            /* width: 0%; */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+            height: 570px;
+
+        }
+        .menu_list{
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            align-items:center;
+            padding: 0px;
+            height: 200px;
+            /* width: 100%; */
+            /* width: 0%; */
+            text-align: center;
+            
+        }
+        .menu_links{
+            display: none;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            text-decoration: none;
+            color: var(--text_color);
+            width: 100%;
+            /* width: 0%; */
+            
+
+        }
+        .menu_items{
+            padding: 0px;
+            margin: 0px;
+            /* background-color: rgb(192, 50, 50); */
+            background-color: rgb(53, 79, 82);
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border-radius: 7px;
+            text-align: left;
+            text-indent: 89px;
+            width: 100%;
+            height: auto;
+            /* width: 0%; */
+            display: none;
+        }
+        .fa-home{
+        content: "\f015";
+        position: relative;
+        left: -36px;
+        top: 34px;
+        font-size: 20px;
+        }
+        .menu_close{
+            position: fixed;
+            left: 240px;
+            height: 100vh;
+            width: 100vw;
+            background: transparent;
+            border: 0px;
+            display: none;
+        }
+        .fa-handshake-o{
+            content: "\f015";
+        position: relative;
+        left: -37px;
+        top: 35px;
+        font-size: 17px;
+        }
+        .fa-exclamation-circle{
+            content: "\f015";
+            position: relative;
+            left: -37px;
+            top: 35px;
+            font-size: 20px;
+        }
+        .fa-phone{
+            content: "\f015";
+            position: relative;
+            left: -39px;
+            top: 35px;
+            font-size: 20px;
+        }
+        .menu_item_img{
+            height: 10px;
+            width: 10px;
+        }
+
+
+        /* for profile */
+
+        .navprofile{
+            background-color: transparent;
+            border: 0px;
+            display: flex;
+            margin-right: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile_image{
+            height: 45px;
+            width: 45px;
+            /* margin-top: 10px; */
+        }
+
+        .profile_username{
+            color: white;
+            margin-left: 5px;
+            font-weight: bold;
+        }
+    </style>
+    {% block css %}{% endblock css %}
+</head>
+<body>
+    
+    <div class="base_container">
+        <nav class="navbar">
+            <button class="navmenu" onclick="menu_clicked()">
+                <div class="line" id="line1"></div>
+                <div class="line" id="line12"></div>
+                <div class="line" id="line3"></div>
+            </button>
+            <div class="logo">
+                <img class="logo_img" src="/media/app_shop/images/fantasy_text.png" alt="">
+            </div>
+
+            <ul class="navlist">
+                <a href="/fshop" class="navlink"><li class="navitems">Home</li></a>    
+                <a href="/fshop/services" class="navlink"><li class="navitems">Services</li></a>    
+                <a href="/fshop/about" class="navlink"><li class="navitems">About</li></a>    
+                <a href="/fshop/contact" class="navlink"><li class="navitems">Contact</li></a>    
+            </ul>
+            <div class="side_content">
+                <button class="navprofile" onclick="go_to_profile()">
+                    <!-- <p>{{user_.username}}</p>
+                    <p>{{user_profile.user.username}}</p> -->
+
+                    <img src="" class="profile_image" id="profile_image">
+                    <div class="profile_username">{{user.username|title}}</div>
+                    
+                </button>
+                <button class="navlogin" onclick="navlogin_btn()">
+                    <div class="profile_icon gg-profile"></div>
+                    <span class="navlogin_text">Login</span>
+                </button>
+                <button class="navcart" onclick="navcart_btn()">
+                    <div class="cart_icon gg-shopping-cart"></div>
+                    <span class="navcart_text">Cart</span>
+                </button>
+
+            </div>
+        </nav>
+        <div class="menu">
+            <div class="menu_logo">
+                <img class="menu_logo_img" src="/media/app_shop/images/fantasy_text.png" alt="">
+            </div>
+            <div class="menu_options">
+                <ul class="menu_list">
+                    <a href="/fshop/your_cart" class="menu_links"><li class="menu_items">Cart</li></a>
+                    <a href="/fshop" class="menu_links"><li class="menu_items">Home</li></a>
+                    <a href="/fshop/services" class="menu_links"></span><li class="menu_items">Services</li></a>
+                    <a href="/fshop/about" class="menu_links"></span><li class="menu_items">About</li></a>
+                    <a href="/fshop/contact" class="menu_links"><li class="menu_items">Contact</li></a>
+                </ul>
+            </div>
+            <div class="menu_base">
+               
+            </div>
+            <button class="menu_close" onclick="menu_clicked()"></button>
+        </div>
+        
+    </div>
+    
+{% block body %}{% endblock body %}
+
+</body>
+<script>
+    function navcart_btn(){
+        window.open('/fshop/your_cart', '_self')
+    }
+    function navlogin_btn(){
+        window.open('/fshop/login_', '_self')
+    }
+    function go_to_profile(){
+        window.open('/fshop/profile', '_self')
+    }
+    function menu_clicked(){
+        var menu = document.querySelector('.menu');
+
+        function display_menu_content(){
+
+            document.querySelector('.menu_close').style.display = 'block';
+
+            document.querySelector('.menu_logo_img').style.display = 'block';
+            document.querySelector('.menu_options').style.width = '90%';
+            document.querySelector('.menu_close').style.display = 'block';
+            document.querySelector('.menu_list').style.width = '100%';
+
+            document.querySelector('.menu_options').style.display = 'block';
+            document.querySelector('.menu_list').style.display = 'block';
+
+            // document.getElementsByClassName('menu_links').style.display = 'block';
+            // document.getElementsByClassName('menu_links').style.width = '100%';
+            // document.getElementsByClassName('menu_items').style.display = 'block';
+            // document.getElementsByClassName('menu_items').style.width = '100%';
+
+
+
+        function isInteger (value) {
+            if (Number(value) % 1 === 0){
+                return true;
+            }   
+            else {
+                return false;
+            }
+        }
+
+
+            var menu_links_list = document.getElementsByClassName('menu_links');
+            var menu_items_list = document.getElementsByClassName('menu_items');
+            
+
+            for(element in menu_links_list){
+                if (isInteger(element)){
+                    menu_links_list[element].style.display = 'flex';
+                    
+                }
+            }
+
+            for(element in menu_items_list){
+                if (isInteger(element)){
+                    menu_items_list[element].style.display = 'block';
+                    
+                }
+            }
+
+
+        }
+        function hide_menu_content(isInteger){
+
+            document.querySelector('.menu_close').style.display = 'none';
+
+            document.querySelector('.menu_logo_img').style.display = 'none';
+            document.querySelector('.menu_options').style.display = 'none';
+            document.querySelector('.menu_list').style.display = 'none';
+            
+
+            var menu_items_list = document.getElementsByClassName('menu_items');
+
+
+            
+        }
+
+
+        let counter = 0;
+        if (menu.style.width < '234px'){
+            var id = setInterval(show_menu, 5);
+        }
+        else if (menu.style.width == '240px'){
+            var id_close = setInterval(close_menu, 5);
+        }
+
+        // menu.style.display = 'block';
+        function show_menu(){
+            if (counter > 234){
+                clearInterval(id);
+            }
+            else if (counter <= 234){
+                counter+=6;
+                menu.style.width = counter + 'px';
+            }
+
+            
+            
+            display_menu_content();
+        }
+
+
+        var counter_close = 240;
+        function close_menu(){
+            
+            if (counter_close >= 0){
+                counter_close = counter_close-6;
+                menu.style.width = counter_close + 'px';
+            }
+            else if(counter_close <= 0){
+                clearInterval(id_close)
+            }
+
+
+            
+            hide_menu_content()
+        }
+        
+}
+
+
+
+
+if (localStorage.getItem('v_cart') == null){
+    var v_cart = {}
+}
+else{
+    v_cart = JSON.parse(localStorage.getItem('v_cart'));
+}
+
+
+console.log(v_cart)
+
+
+
+
+function clicked_add_to_cart(id_btn){
+    id_ = id_btn
+    id = id_.replace("b_", "")
+    console.log(id, "id")
+    name = document.getElementById('p_card_name_' + id).innerHTML
+    price = document.getElementById('p_card_price_' + id).innerHTML
+    desc = document.getElementById('p_card_desc_' + id).innerHTML
+    primary_image = document.getElementById('p_card_img_' + id).src
+    category1 = document.getElementById('p_card_category1_' + id).innerHTML
+    category2 = document.getElementById('p_card_category2_' + id).innerHTML
+    category3 = document.getElementById('p_card_category3_' + id).innerHTML
+    images = document.getElementById('p_card_images_' + id).innerHTML
+    img_id = document.getElementById('p_card_img_id_' + id).innerHTML
+    quantity = 1
+
+
+    v_cart["p" + id] = [id, name, price, desc, primary_image, category1, category2, category3, images, img_id, quantity]
+    localStorage.setItem('v_cart', JSON.stringify(v_cart));
+    console.log(v_cart)
+}
+
+function update_cart(v_cart){
+    // vcart = localStorage.getItem('v_cart')
+    localStorage.setItem('v_cart', JSON.stringify(v_cart))
+}
+
+
+
+
+// adding eddited string url of profile image
+function edit_profile_img(){
+    url_link = `{{user_profile.0.profile_img.url}}`
+    new_url_link = url_link.replace(".jpg", ".png")
+    new_url_link_ = new_url_link.replace("/media/", "/media/app_shop/profile_images/")
+    document.getElementById("profile_image").setAttribute("src", new_url_link_)
+    console.log(new_url_link_)
+}
+edit_profile_img()
+
+
+
+
+
+
+
+</script>
+{% block js %}
+{% endblock js %}
+</html>

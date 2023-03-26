@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+
+    <form action="" method="post" onsubmit="mehtod: post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input id="name" name="name" type="text" placeholder="name"><br>
+        <input id="price" name="price" type="text" placeholder="price"><br>
+        <input id="images" name="images" type="file" multiple><br>
+        <textarea id="desc" name="desc"></textarea><br>
+        primary<input id="primary_img" name="primary_img" type="file"><br>
+        <input id="category1" name="category1" type="text" placeholder="category1"><br>
+        <input id="category2" name="category2" type="text" placeholder="category2"><br>
+        <input id="category3" name="category3" type="text" placeholder="category3"><br>
+        <input type="submit" id="submit" name="submit">
+
+    </form>
+
+    Your Product Id is {{p.product_id}}
+    
+</body>
+</html>

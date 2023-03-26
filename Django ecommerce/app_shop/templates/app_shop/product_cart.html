@@ -1,0 +1,440 @@
+{% extends 'app_shop/base.html' %}
+{% block title %}Your Cart{% endblock title %}
+{% block css %}
+<style>
+    .navbar{
+        background-color: rgb(47, 62, 70);
+    }
+    .product_cart_container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 108px;
+
+    }
+    .pv_p_card {
+        border: 2px solid rgb(47, 62, 70);
+        width: 252px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+        height: 350px;
+        overflow: hidden;
+
+    }
+    .pv_p_card_img {
+        max-width: 225px;
+        max-height: 225px;
+        cursor: pointer;
+    }
+    .pv_p_card_name {
+        padding-left: 8px;
+        padding-right: 8px;
+        position: relative;
+        height: 26px;
+        /* border: 1px solid blue; */
+        overflow: hidden;
+    }
+    .pv_p_card_price {
+        position: relative;
+        left: 85px;
+        top: -10px;
+        color: rgb(47, 62, 70);
+        font-weight: 600;
+        margin-bottom: 0px;
+    }
+    .pv_p_card_add_to_cart{
+        width: 90%;
+        height: 44px;
+        position: relative;
+        top: -5px;
+        background: rgb(53, 79, 82);
+        border: 0px;
+        color: white;
+        transition-property: all;
+        transition-duration: 0.3s;
+    }
+    .pv_p_card_quantity{
+        display: flex;
+        flex-direction: row;
+        height: 35px;
+        justify-content: space-between;
+        width: 100%;
+        background-color: rgb(47, 62, 70);
+        color: white;
+    }
+    .pv_plus{
+        width: 45%;
+        /* margin-left: 5px; */
+        margin-right: 5px;
+        padding: 0px;
+        background: transparent;
+        border: 0px;
+        color: white;
+        font-size: 20px;
+        
+
+    }
+    .pv_minus{
+        width: 45%;
+        margin-left: 5px;
+        /* margin-right: 5px; */
+        padding: 0px;
+        background: transparent;
+        border: 0px;
+        color: white;
+        font-size: 25px;
+
+    }
+    .pv_quantity_number{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+    }
+    .cart_item_remove_div{
+        display: flex;
+        flex-direction: row;
+        height: 35px;
+        justify-content: space-between;
+        width: 100%;
+        /* background-color: rgb(47, 62, 70); */
+        color: white;
+        margin: 0px;
+        padding: 0px;
+    }
+    .cart_item_remove{
+        display: none;
+        width: 50%;
+        height: 35px;
+        padding: 0px;
+        margin: 0px;
+        border: 0px;
+        background-color: rgb(47, 62, 70); 
+        color: white;
+    }
+    .cart_item_not_remove{
+        display: none;
+        width: 50%;
+        height: 35px;
+        padding: 0px;
+        margin: 0px;
+        border: 0px;
+        background-color: white;
+        border-top: 2px solid rgb(47, 62, 70);
+        color: rgb(47, 62, 70);
+    }
+    .checkout{
+        /* margin-top: 100px; */
+        /* margin-left: 20%; */
+        width: 100vw;
+        color:rgb(255, 255, 255);
+        display: flex;
+        flex-direction: column;
+        /* border-bottom: 1px solid rgb(47, 62, 70); */
+        /* border-top: 1px solid rgb(47, 62, 70); */
+        position: fixed;
+        background-color: rgb(47, 62, 70);
+        top: 91.8vh;
+        height: 60px;
+        /* align-content: center; */
+
+        
+    }
+    #checkout_total{
+        border-bottom: 1px solid rgb(39, 51, 58);
+        margin-left: 25px;
+        font-weight: 700;
+        margin-top: 10px;
+    }
+    .checkout_btn{
+        /* width: 140px;
+        height: 35px; */
+        background-color: rgb(53, 79, 82);
+        color: rgb(255, 255, 255);
+        /* margin-top: 20px; */
+        border: 0px;
+        position: fixed;
+        /* left: 40vw; */
+        height: 100%;
+        background: transparent;
+        
+    }
+
+    .cart_checkout{
+        position: fixed;
+        background-color: rgb(39, 51, 58);
+        width: 100vw;
+        margin: 0px;
+        padding: 0px;
+        height: 50px;
+        top: 93.2vh;
+        border: 0px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    .input_email{
+        position: relative;
+        /* top: -30px; */
+        border: 0px;
+        border-bottom: 2px solid rgb(47, 62, 70);
+        outline: none;
+        /* align-self: center; */
+    }
+    .cart_total{
+        color: white;
+        position: relative;
+        /* top: -10px; */
+    }
+
+
+
+    /* media query for mobiles */
+
+    @media (max-width: 500px){
+        .pv_p_card{
+            width: 226.8px;
+            height: 315px;
+        }
+        .pv_p_card_name{
+            font-size: 15px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .pv_p_card_price{
+            left: 68px;
+        }
+        .pv_p_card_img{
+            height: 202.5px;
+            width: 202.5px;
+        }
+    }
+   
+</style>
+{% endblock css %}
+{% block body %}
+
+
+<div class="product_cart_container container">
+
+
+
+    <!-- <div class="pv_p_card" id="pv_p_card_{{p.0}}">
+        <a href="product_view_{{p.0}}"><img class="pv_p_card_img" id="pv_p_card_img_{{p.0}}" src="/media/{{p.4}}"></a>
+        <p class="pv_p_card_name" id="pv_p_card_name_{{p.0}}">{{p.1}}</p>
+        <p class="pv_p_card_price" id="pv_p_card_price_{{p.0}}">RS {{p.2}}</p>
+        <div class="pv_p_card_quantity" id="qb_{{p.0}}" onclick="clicked_add_to_cart(this.id)"> <!--js in base.html-->
+            <!-- <button class="pv_plus">+</button>
+            <p class="pv_quantity_number"></p>
+            <button class="pv_minus">-</button>
+        </div> 
+
+    </div>      --> 
+
+    <!-- <div class="cart_item_remove_div">
+        <button class="cart_item_remove" id="cart_item_remove_"></button>
+        <button class="cart_item_not_remove" id="cart_item_not_remove_"></button>
+    </div> -->
+    
+
+
+
+
+
+</div>
+
+
+<!-- <button class="checkout"> -->
+    <!-- <span>Total<span id="checkout_total"></span></span> -->
+    <!-- <button class="checkout_btn"></button>
+</button> -->
+
+
+<form  method="post">
+    {% csrf_token %}
+        
+    <input type="text" class="input_email" placeholder="Enter your Email" id="input_email" name="input_email">
+    <button class="cart_checkout" type="submit" id="cart_checkout" name="cart_checkout">
+        <span class="cart_total" id="cart_total"></span>
+        <input name="cart_total" id="cart_total_input" type="hidden">
+        <input name="cart_items_input" id="cart_items_input" type="hidden">
+    </button>
+   
+</form>
+
+
+
+
+
+{% endblock body %}
+{% block js %}
+
+<script>
+
+    
+
+//     #0 - product_id
+//     # 1 - product_name
+//     # 2 - product_price
+//     # 3 - product_desc
+//     # 4 - primary_img
+//     # 5 - category1
+//     # 6 - category2
+//     # 7 - category3
+//     # 8 - images
+//     # 9 - img_id
+//     # 10 - quantity
+
+    
+    var v_cart = JSON.parse(localStorage.getItem('v_cart'))
+    for (item in v_cart){
+        
+        prev_content = document.querySelector('.product_cart_container').innerHTML
+        new_content = `
+    <div class="pv_p_card" id="pv_p_card_${v_cart[item][0]}">
+        <a href="product_view_${v_cart[item][0]}"><img class="pv_p_card_img" id="pv_p_card_img_${v_cart[item][0]}" src="${v_cart[item][4]}"></a>
+        <p class="pv_p_card_name" id="pv_p_card_name_${v_cart[item][0]}">${v_cart[item][1]}</p>
+        <p class="pv_p_card_price" id="pv_p_card_price_${v_cart[item][0]}">${v_cart[item][2]}</p>
+        <div class="pv_p_card_quantity" id="qb_${v_cart[item][0]}"> <!--js in base.html-->
+
+            <div class="cart_item_remove_div" id="cart_item_remove_div_${v_cart[item][0]}" style="display: none">
+                <button class="cart_item_remove" id="cart_item_remove_${v_cart[item][0]}" onclick="check_remove(${v_cart[item][0]})" style="display: none">Remove</button>
+                <button class="cart_item_not_remove" id="cart_item_not_remove_${v_cart[item][0]}" onclick="check_not_remove(${v_cart[item][0]})" style="display: none">Dont Remove</button>
+            </div>
+
+
+            <button class="pv_plus" onclick="q_plus(this.id)" id="plus_${v_cart[item][0]}">+</button>
+            <p class="pv_quantity_number" id="quantity_${v_cart[item][0]}">${v_cart[item][10]}</p>
+            <button class="pv_minus" onclick="q_minus(this.id)" id="minus_${v_cart[item][0]}">-</button>
+        </div> 
+
+    </div>
+        `
+
+
+    document.querySelector('.product_cart_container').innerHTML = prev_content + new_content
+    check_zero_quantity(v_cart[item][0])
+    
+    }
+
+
+
+    function q_plus(p_id){
+     p_id = p_id.replace("plus_", "")
+     v_cart["p" + p_id][10] = Number(v_cart["p" + p_id][10]) + 1
+     console.log(v_cart["p" + p_id][10])
+     update_cart(v_cart)
+     document.getElementById("quantity_" + p_id).innerHTML = v_cart["p" + p_id][10];
+
+     get_checkout_total(v_cart)
+    }
+
+    function q_minus(p_id){
+    
+    p_id = p_id.replace("minus_", "")
+    if(Number(v_cart["p" + p_id][10]) > 0){
+        v_cart["p" + p_id][10] = Number(v_cart["p" + p_id][10]) - 1
+        console.log(v_cart["p" + p_id][10])
+        update_cart(v_cart)
+        document.getElementById("quantity_" + p_id).innerHTML = v_cart["p" + p_id][10]
+        check_zero_quantity(p_id);
+        }
+
+        get_checkout_total(v_cart);
+
+    }
+
+    function check_zero_quantity(p_id){
+        if(Number(v_cart["p" + p_id][10]) == 0){
+            document.getElementById("cart_item_remove_div_" + p_id).style.display = "flex";
+            document.getElementById("cart_item_remove_" + p_id).style.display = "block";
+            document.getElementById("cart_item_not_remove_" + p_id).style.display = "block";
+
+            document.getElementById("plus_" + p_id).style.display = "none";
+            document.getElementById("minus_" + p_id).style.display = "none";
+            document.getElementById("quantity_" + p_id).style.display = "none";
+        }
+
+    }
+    
+    function check_remove(p_id){
+        delete v_cart["p" + p_id];
+        console.log(v_cart)
+        document.getElementById("pv_p_card_" + p_id).style.display = "none"
+        update_cart(v_cart);
+
+        get_checkout_total(v_cart)
+    }
+    function check_not_remove(p_id){
+        v_cart["p" + p_id][10] = Number(v_cart["p" + p_id][10]) + 1;
+
+        document.getElementById("cart_item_remove_div_" + p_id).style.display = "none";
+        document.getElementById("cart_item_remove_" + p_id).style.display = "none";
+        document.getElementById("cart_item_not_remove_" + p_id).style.display = "none";
+        
+        document.getElementById("plus_" + p_id).style.display = "block";
+        document.getElementById("minus_" + p_id).style.display = "block";
+        document.getElementById("quantity_" + p_id).style.display = "flex";
+
+        update_cart(v_cart)
+        document.getElementById("quantity_" + p_id).innerHTML = v_cart["p" + p_id][10];
+
+
+
+        get_checkout_total(v_cart);
+
+    }
+
+
+    function get_checkout_total(v_cart){
+        total = 0;
+        for (item in v_cart){
+            total += (Number(v_cart[item][2].replace("RS ", "")))*(Number(v_cart[item][10]))
+        }
+
+        // document.getElementById("checkout_total").innerHTML = "RS " + total
+        document.querySelector(".cart_total").innerHTML = "<em>pay </em>" + "  " + " <b>RS " + total + "</b>"
+        document.querySelector('#cart_total_input').setAttribute('value', total)
+
+        order_list = []
+        for (item in v_cart){
+            id = v_cart[item][0]
+            name = v_cart[item][1]
+            price = v_cart[item][2]
+            quantity = v_cart[item][10]
+            cart_order_product = [id, name, price, quantity]
+            order_list.push(cart_order_product)
+            // alert(order_list)
+        }
+        console.log(order_list, "o")
+        document.querySelector('#cart_items_input').setAttribute('value', JSON.stringify(order_list))
+
+        // alert(order_list)
+
+
+        
+        
+    }
+    get_checkout_total(v_cart)
+
+
+
+    function extend_cart_page_length(){
+        var cart_page_length =  document.querySelector('.product_cart_container').offsetHeight;
+        var new_cart_page_length = Number(cart_page_length) + 0;
+        document.querySelector('.product_cart_container').style.height = new_cart_page_length + 'px';
+    }
+    // extend_cart_page_length()
+    
+     
+
+    
+    
+</script>
+
+{% endblock js %}
